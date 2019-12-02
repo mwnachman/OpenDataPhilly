@@ -7,18 +7,34 @@ import java.util.Scanner;
 
 import edu.upenn.cit594.data.Datum;
 
-public class CsvParkingReader implements ParkingReader {
-	
-	protected String filename;
-	
+public class CsvParkingReader extends ParkingReader {
+		
 	public CsvParkingReader(String parkingFilename) {
 		filename = parkingFilename;
+		data = new ArrayList<Datum>();
+	}
+	
+	private void validateAndAdd(String[] d) {
+
+		Datum entry = new Datum();
+		int i = 0;
+		
+		for (String k : keys) {
+
+			if (d.length > i && !d[i].equals("")) {
+				entry.addKeyValuePair(k, d[i]);
+				i++;
+			} else {
+				return;
+			}
+		}
+
+		data.add(entry);
+		
 	}
 	
 	@Override
 	public List<Datum> getFileContents() {
-		
-		List<Datum> data = new ArrayList<Datum>();
 	
 		Scanner in = null;
 	
@@ -30,14 +46,7 @@ public class CsvParkingReader implements ParkingReader {
 			while (in.hasNextLine()) {
 				String nextLine = in.nextLine();
 				String[] nextLineArray = nextLine.split(",");
-				Datum d = new Datum();
-				d.addKeyValuePair("state", nextLineArray[0]);
-				d.addKeyValuePair("longitude", nextLineArray[1]);
-				d.addKeyValuePair("latitude", nextLineArray[2]);
-				if (in.hasNextLine()) {
-					in.nextLine(); // consume the rest of the line
-				}
-				data.add(d);	
+				validateAndAdd(nextLineArray);
 			}
 			
 		} catch (Exception e) {

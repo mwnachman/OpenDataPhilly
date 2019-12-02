@@ -1,11 +1,19 @@
 package edu.upenn.cit594.processor;
 
+import java.util.List;
+
+import edu.upenn.cit594.data.Datum;
 import edu.upenn.cit594.datamanagement.ParkingReader;
 
 public class ParkingProcessor {
+	
+	protected List<Datum> parkingData;
 
-	public ParkingProcessor(ParkingReader parkingReader, String parkingFilename) {
-		// TODO Auto-generated constructor stub
+	
+	public ParkingProcessor(ParkingReader parkingReader) {
+		
+		parkingData = parkingReader.getFileContents();
+	
 	}
 
 }

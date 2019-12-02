@@ -4,8 +4,20 @@ import java.util.List;
 
 import edu.upenn.cit594.data.Datum;
 
-public interface ParkingReader {
+public abstract class ParkingReader {
 	
-	public List<Datum> getFileContents();
+	protected String filename;
+	protected List<Datum> data;
+	protected String[] keys = {"date", "fine", "violation", "plate_id", "state", "ticket_number", "zip_code"};
+		
+	public List<Datum> getFileContents() {
+		return null;
+	};
+	
+	public String getFilename() {
+		return filename;
+	}
+	
+	private void validateAndAdd(Object o) {};
 	
 }

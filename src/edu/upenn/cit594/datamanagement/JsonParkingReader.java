@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,55 +13,47 @@ import org.json.simple.parser.ParseException;
 
 import edu.upenn.cit594.data.Datum;
 
-public class JsonParkingReader implements ParkingReader {
-	
-	protected String filename;
-	protected List<Datum> data;
+public class JsonParkingReader extends ParkingReader {
 
 	public JsonParkingReader(String parkingFilename) {
 		filename = parkingFilename;
 		data = new ArrayList<Datum>();
 	}
 	
-	private void validateAndAdd(JSONObject d, Set<String> keys) {
+	private void validateAndAdd(JSONObject d) {
 		
-		// use the "get" method to print the value associated with that key
-		String text = (String) d.get("text");
+		Datum entry = new Datum();
 		
-		if (text.toLowerCase().contains("flu ") ||
-			text.toLowerCase().contains("flu.") ||
-			text.toLowerCase().contains("flu!") ||
-			text.toLowerCase().contains("flu?")) {
-			Datum entry = new Datum();
-			
-			for (String k : keys) {
+		for (String k : keys) {
+			if (!d.get(k).equals("")) {
 				entry.addKeyValuePair(k, d.get(k));
+			} else {
+				return;
 			}
-			
-			data.add(entry);
-
 		}
+
+		data.add(entry);
+
 	}
 
 	@Override
 	public List<Datum> getFileContents() {
-		
 		// create a parser
 		JSONParser parser = new JSONParser();
 
-		// check if Tweets File exists or not
-		FileReader frTweets = null;
+		// check if Parking Data File exists or not
+		FileReader parkingData = null;
 		try {
-			frTweets = new FileReader(filename);
+			parkingData = new FileReader(filename);
 		} catch (IOException e) {
-			System.out.println("The program encoutered an error with the tweets file.");
+			System.out.println("The program encoutered an error with the parking file. " + e);
 			System.exit(0);
 		}
 		
 		// get the array of JSON objects
-		JSONArray tweets = null;
+		JSONArray tickets = null;
 		try {
-			tweets = (JSONArray) parser.parse(frTweets);
+			tickets = (JSONArray) parser.parse(parkingData);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {
@@ -70,26 +61,22 @@ public class JsonParkingReader implements ParkingReader {
 		}
 
 		// use an iterator to iterate over each element of the array
-		Iterator iter = tweets.iterator();
+		Iterator iter = tickets.iterator();
 		
-		// Get first tweet
-		JSONObject tweet = (JSONObject) iter.next();
-		
-		// Get set of keys from first tweet
-		Set<String> keys = tweet.keySet();
-		
-		validateAndAdd(tweet, keys);
+		// Get first ticket
+		JSONObject ticket = (JSONObject) iter.next();
+		validateAndAdd(ticket);
 
 		// iterate while there are more objects in array
 		while (iter.hasNext()) {
 			// get the next JSON object
-			tweet = (JSONObject) iter.next();
+			ticket = (JSONObject) iter.next();
 			
-			validateAndAdd(tweet, keys);
+			validateAndAdd(ticket);
 		}
 		
 		try {
-			frTweets.close();
+			parkingData.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

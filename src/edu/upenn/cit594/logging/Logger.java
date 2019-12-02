@@ -23,6 +23,10 @@ public class Logger {
 		} catch (Exception e) {}
 	}
 	
+	public String getFilename() {
+		return filename;
+	}
+	
 	// Non-static method
 	public void log(String msg){
 		out.println(msg);

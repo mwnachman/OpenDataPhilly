@@ -29,11 +29,12 @@ public class Main {
 		String parkingFilename = args[1];
 		
 		ParkingReader parkingReader = fileType.equals("json") ? new JsonParkingReader(parkingFilename) : new CsvParkingReader(parkingFilename);
-				
+		System.out.println("parking Reader " + parkingReader);
+		
 		String propertiesFilename = args[2];
 		String populationFilename = args[3];
 		
-		ParkingProcessor processor = new ParkingProcessor(parkingReader, parkingFilename);
+		ParkingProcessor processor = new ParkingProcessor(parkingReader);
 		
 		String loggerFilename = args[4];
 		Logger.setFilename(loggerFilename);
