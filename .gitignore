@@ -2,3 +2,7 @@
 .classpath
 .project
 .settings/*
+/src/parking.csv
+/src/parking.json
+/src/properties.csv
+/src/population.txt
