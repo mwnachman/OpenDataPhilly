@@ -1,16 +1,22 @@
 package edu.upenn.cit594.ui;
 
 import edu.upenn.cit594.processor.ParkingProcessor;
+import edu.upenn.cit594.processor.PopulationProcessor;
+import edu.upenn.cit594.processor.PropertyProcessor;
 import sun.security.ssl.Debug;
 import edu.upenn.cit594.logging.Logger;
 import java.util.Scanner;
 
 public class Presentation {
 
-	protected ParkingProcessor processor;
+	protected ParkingProcessor parkingProcessor;
+	protected PropertyProcessor propertyProcessor;
+	protected PopulationProcessor populationProcessor;
 
-	public Presentation(ParkingProcessor p) {
-		processor = p;
+	public Presentation(ParkingProcessor p1, PropertyProcessor p2, PopulationProcessor p3) {
+		parkingProcessor = p1;
+		propertyProcessor = p2;
+		populationProcessor = p3;
 	}
 	
 	public void start() {

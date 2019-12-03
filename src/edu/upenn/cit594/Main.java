@@ -9,8 +9,12 @@ import org.json.simple.parser.ParseException;
 import edu.upenn.cit594.ui.Presentation;
 import edu.upenn.cit594.datamanagement.JsonParkingReader;
 import edu.upenn.cit594.datamanagement.ParkingReader;
+import edu.upenn.cit594.datamanagement.PopulationReader;
+import edu.upenn.cit594.datamanagement.PropertyReader;
 import edu.upenn.cit594.logging.Logger;
 import edu.upenn.cit594.processor.ParkingProcessor;
+import edu.upenn.cit594.processor.PopulationProcessor;
+import edu.upenn.cit594.processor.PropertyProcessor;
 import edu.upenn.cit594.datamanagement.CsvParkingReader;
 
 public class Main {
@@ -33,13 +37,18 @@ public class Main {
 		
 		String propertiesFilename = args[2];
 		String populationFilename = args[3];
+		PropertyReader propertyReader = new PropertyReader(propertiesFilename);
+		System.out.println(propertyReader.getFileContents().size()); // TESTING
+		PopulationReader populationReader = new PopulationReader(populationFilename);
 		
-		ParkingProcessor processor = new ParkingProcessor(parkingReader);
+		ParkingProcessor p1 = new ParkingProcessor(parkingReader);
+		PropertyProcessor p2 = new PropertyProcessor(propertyReader);
+		PopulationProcessor p3 = new PopulationProcessor(populationReader);
 		
 		String loggerFilename = args[4];
 		Logger.setFilename(loggerFilename);
 		
-		Presentation ui = new Presentation(processor);
+		Presentation ui = new Presentation(p1, p2, p3);
 		ui.start();
 
 	}

@@ -12,7 +12,7 @@ public abstract class ParkingReader {
 		
 	public List<Datum> getFileContents() {
 		return null;
-	};
+	}
 	
 	public String getFilename() {
 		return filename;
