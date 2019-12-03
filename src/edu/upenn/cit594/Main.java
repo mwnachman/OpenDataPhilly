@@ -40,15 +40,16 @@ public class Main {
 		PropertyReader propertyReader = new PropertyReader(propertiesFilename);
 		PopulationReader populationReader = new PopulationReader(populationFilename);
 		
-		ParkingProcessor p1 = new ParkingProcessor(parkingReader);
-		PropertyProcessor p2 = new PropertyProcessor(propertyReader);
-		PopulationProcessor p3 = new PopulationProcessor(populationReader);
+		PopulationProcessor populationProcessor = new PopulationProcessor(populationReader);
+		ParkingProcessor parkingProcessor = new ParkingProcessor(parkingReader);
+		PropertyProcessor propertyProcessor = new PropertyProcessor(propertyReader, populationProcessor);
+		
 		
 		
 		String loggerFilename = args[4];
 		Logger.setFilename(loggerFilename);
 		
-		Presentation ui = new Presentation(p1, p2, p3);
+		Presentation ui = new Presentation(parkingProcessor, propertyProcessor, populationProcessor);
 		ui.start();
 
 	}
