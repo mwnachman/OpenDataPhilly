@@ -49,7 +49,7 @@ public class PropertyReader {
 				int zcLocation = titleLocations.get("zip_code");
 				
 				
-				while (s.hasNext()) {
+				while (s.hasNextLine()) {
 					String tempString = s.nextLine();
 					String[] tempArray = tempString.split(",");
 					

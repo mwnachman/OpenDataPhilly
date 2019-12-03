@@ -38,12 +38,12 @@ public class Main {
 		String propertiesFilename = args[2];
 		String populationFilename = args[3];
 		PropertyReader propertyReader = new PropertyReader(propertiesFilename);
-		System.out.println(propertyReader.getFileContents().size()); // TESTING
 		PopulationReader populationReader = new PopulationReader(populationFilename);
 		
 		ParkingProcessor p1 = new ParkingProcessor(parkingReader);
 		PropertyProcessor p2 = new PropertyProcessor(propertyReader);
 		PopulationProcessor p3 = new PopulationProcessor(populationReader);
+		
 		
 		String loggerFilename = args[4];
 		Logger.setFilename(loggerFilename);
