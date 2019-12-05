@@ -32,14 +32,19 @@ public class Presentation {
 			Scanner s = new Scanner(System.in);
 
 			try {
-				int userSelection = s.nextInt();
+				String userSelection = s.next();
+				
+				// Add Selection to Log
+				logger.log(System.currentTimeMillis() + " " + userSelection);
+				
+				int intUserSelection = Integer.parseInt(userSelection);
 
 				// Check that is between 0-6
-				if (userSelection < 0 || userSelection > 6) {
+				if (intUserSelection < 0 || intUserSelection > 6) {
 					System.out.println(
 							"You entered a wrong input! Program terminated! Restart and enter and integer 0-6!");
 				} else { // Run code based on input
-					switch (userSelection) {
+					switch (intUserSelection) {
 					case 0:
 						System.exit(0);
 						break;

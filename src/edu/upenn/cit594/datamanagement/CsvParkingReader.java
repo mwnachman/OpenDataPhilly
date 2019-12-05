@@ -6,19 +6,20 @@ import java.util.List;
 import java.util.Scanner;
 
 import edu.upenn.cit594.data.Datum;
+import edu.upenn.cit594.logging.Logger;
 
 public class CsvParkingReader extends ParkingReader {
-		
+
 	public CsvParkingReader(String parkingFilename) {
 		filename = parkingFilename;
 		data = new ArrayList<Datum>();
 	}
-	
+
 	private void validateAndAdd(String[] d) {
 
 		Datum entry = new Datum();
 		int i = 0;
-		
+
 		for (String k : keys) {
 
 			if (d.length > i && !d[i].equals("")) {
@@ -30,36 +31,40 @@ public class CsvParkingReader extends ParkingReader {
 		}
 
 		data.add(entry);
-		
+
 	}
-	
+
 	@Override
 	public List<Datum> getFileContents() {
-	
+
+		// Log Opening File //
+		Logger l = Logger.getInstance();
+		l.log(System.currentTimeMillis() + " " + filename);
+
 		Scanner in = null;
-	
+
 		try {
-			
+
 			in = new Scanner(new File(filename));
 			in.useDelimiter(",");
-			
+
 			while (in.hasNextLine()) {
 				String nextLine = in.nextLine();
 				String[] nextLineArray = nextLine.split(",");
 				validateAndAdd(nextLineArray);
 			}
-			
+
 		} catch (Exception e) {
-			
+
 			throw new IllegalStateException(e);
-			
+
 		} finally {
-			
+
 			in.close();
-			
+
 		}
-		
+
 		return data;
-	}	
+	}
 
 }

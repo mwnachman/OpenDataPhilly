@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import edu.upenn.cit594.data.Property;
+import edu.upenn.cit594.logging.Logger;
 
 public class PropertyReader {
 	
@@ -22,6 +23,10 @@ public class PropertyReader {
 	 */
 	public ArrayList<Property> getFileContents() {
 		ArrayList<Property> outList = new ArrayList<Property>();
+		
+		// Log Opening File //
+		Logger l = Logger.getInstance();
+		l.log(System.currentTimeMillis() + " " + inputFilename);
 		
 		// Check that file exists
 		File file = new File(inputFilename);

@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import edu.upenn.cit594.data.Datum;
+import edu.upenn.cit594.logging.Logger;
 
 public class JsonParkingReader extends ParkingReader {
 
@@ -19,11 +20,11 @@ public class JsonParkingReader extends ParkingReader {
 		filename = parkingFilename;
 		data = new ArrayList<Datum>();
 	}
-	
+
 	private void validateAndAdd(JSONObject d) {
-		
+
 		Datum entry = new Datum();
-		
+
 		for (String k : keys) {
 			if (!d.get(k).equals("")) {
 				entry.addKeyValuePair(k, d.get(k));
@@ -38,6 +39,10 @@ public class JsonParkingReader extends ParkingReader {
 
 	@Override
 	public List<Datum> getFileContents() {
+		// Log Opening File //
+		Logger l = Logger.getInstance();
+		l.log(System.currentTimeMillis() + " " + filename);
+
 		// create a parser
 		JSONParser parser = new JSONParser();
 
@@ -49,7 +54,7 @@ public class JsonParkingReader extends ParkingReader {
 			System.out.println("The program encoutered an error with the parking file. " + e);
 			System.exit(0);
 		}
-		
+
 		// get the array of JSON objects
 		JSONArray tickets = null;
 		try {
@@ -62,7 +67,7 @@ public class JsonParkingReader extends ParkingReader {
 
 		// use an iterator to iterate over each element of the array
 		Iterator iter = tickets.iterator();
-		
+
 		// Get first ticket
 		JSONObject ticket = (JSONObject) iter.next();
 		validateAndAdd(ticket);
@@ -71,18 +76,18 @@ public class JsonParkingReader extends ParkingReader {
 		while (iter.hasNext()) {
 			// get the next JSON object
 			ticket = (JSONObject) iter.next();
-			
+
 			validateAndAdd(ticket);
 		}
-		
+
 		try {
 			parkingData.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return data;
-		
+
 	}
 
 }
