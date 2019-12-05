@@ -72,6 +72,7 @@ public class PropertyReader {
 				
 				}
 				
+				s.close();
 				return outList;
 				
 				

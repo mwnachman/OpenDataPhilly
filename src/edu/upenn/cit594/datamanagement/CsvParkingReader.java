@@ -5,19 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import edu.upenn.cit594.data.Datum;
+import edu.upenn.cit594.data.ParkingTicket;
 import edu.upenn.cit594.logging.Logger;
 
 public class CsvParkingReader extends ParkingReader {
 
 	public CsvParkingReader(String parkingFilename) {
 		filename = parkingFilename;
-		data = new ArrayList<Datum>();
+		data = new ArrayList<ParkingTicket>();
 	}
 
 	private void validateAndAdd(String[] d) {
 
-		Datum entry = new Datum();
+		ParkingTicket entry = new ParkingTicket();
 		int i = 0;
 
 		for (String k : keys) {
@@ -35,7 +35,7 @@ public class CsvParkingReader extends ParkingReader {
 	}
 
 	@Override
-	public List<Datum> getFileContents() {
+	public List<ParkingTicket> getFileContents() {
 
 		// Log Opening File //
 		Logger l = Logger.getInstance();

@@ -3,7 +3,7 @@ package edu.upenn.cit594.ui;
 import edu.upenn.cit594.processor.ParkingProcessor;
 import edu.upenn.cit594.processor.PopulationProcessor;
 import edu.upenn.cit594.processor.PropertyProcessor;
-import sun.security.ssl.Debug;
+//import sun.security.ssl.Debug;
 import edu.upenn.cit594.logging.Logger;
 import java.util.Scanner;
 
