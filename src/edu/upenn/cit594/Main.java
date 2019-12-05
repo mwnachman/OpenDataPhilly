@@ -30,10 +30,19 @@ public class Main {
 			System.exit(0);
 		}
 		
+		// Logger & Log Program Start
+		
+		String loggerFilename = args[4];
+		Logger.setFilename(loggerFilename);
+		Logger l = Logger.getInstance();
+		l.log(System.currentTimeMillis() + " " + args[0] + " " + args[1] + " " + args[2] + " " + args[3] + " " + args[4]);
+		
+		// Set Up Relationships
+		
 		String parkingFilename = args[1];
 		
 		ParkingReader parkingReader = fileType.equals("json") ? new JsonParkingReader(parkingFilename) : new CsvParkingReader(parkingFilename);
-		System.out.println("parking Reader " + parkingReader);
+//		System.out.println("parking Reader " + parkingReader);
 		
 		String propertiesFilename = args[2];
 		String populationFilename = args[3];
@@ -43,9 +52,6 @@ public class Main {
 		PopulationProcessor populationProcessor = new PopulationProcessor(populationReader);
 		ParkingProcessor parkingProcessor = new ParkingProcessor(parkingReader);
 		PropertyProcessor propertyProcessor = new PropertyProcessor(propertyReader, populationProcessor);
-		
-		String loggerFilename = args[4];
-		Logger.setFilename(loggerFilename);
 		
 		Presentation ui = new Presentation(parkingProcessor, propertyProcessor, populationProcessor);
 		ui.start();
