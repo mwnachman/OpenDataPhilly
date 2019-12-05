@@ -1,11 +1,11 @@
 package edu.upenn.cit594.logging;
 
 import java.io.File;
-import java.io.PrintWriter;
+import java.io.FileWriter;
 
 public class Logger {
 	
-	private static PrintWriter out;
+	private static FileWriter fw;
 	private static String filename;
 	
 	// Singleton logger instance
@@ -19,9 +19,10 @@ public class Logger {
 	public static void setFilename(String loggerFilename) {
 		filename = loggerFilename;
 		try {
-			out = new PrintWriter(new File(loggerFilename));
+			fw = new FileWriter(new File(loggerFilename),true); // make is so it can append
 		} catch (Exception e) {}
 	}
+	
 	
 	public String getFilename() {
 		return filename;
@@ -29,8 +30,12 @@ public class Logger {
 	
 	// Non-static method
 	public void log(String msg){
-		out.println(msg);
-		out.flush();
+		try {
+			fw.write(msg+"\n");
+			fw.flush();
+		} catch (Exception e) {
+			
+		}
 	}
 
 }
