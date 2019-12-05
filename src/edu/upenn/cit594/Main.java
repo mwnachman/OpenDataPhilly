@@ -44,8 +44,6 @@ public class Main {
 		ParkingProcessor parkingProcessor = new ParkingProcessor(parkingReader);
 		PropertyProcessor propertyProcessor = new PropertyProcessor(propertyReader, populationProcessor);
 		
-		
-		
 		String loggerFilename = args[4];
 		Logger.setFilename(loggerFilename);
 		
