@@ -43,7 +43,8 @@ public class PopulationReader {
 					}
 
 				}
-
+				
+				s.close();
 				return outMap;
 
 			} catch (FileNotFoundException e) {
