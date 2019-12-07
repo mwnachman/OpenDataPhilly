@@ -3,6 +3,7 @@ package edu.upenn.cit594.datamanagement;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import edu.upenn.cit594.logging.Logger;
@@ -15,13 +16,13 @@ public class PopulationReader {
 		this.inputFilename = populationFilename;
 	}
 
-	public HashMap<Long, Long> getFileContents() {
+	public Map<Integer, Integer> getFileContents() {
 
 		// Log Opening File //
 		Logger l = Logger.getInstance();
 		l.log(System.currentTimeMillis() + " " + inputFilename);
 
-		HashMap<Long, Long> outMap = new HashMap<Long, Long>();
+		Map<Integer, Integer> outMap = new HashMap<Integer, Integer>();
 		File file = new File(inputFilename);
 
 		if (file.canRead()) {
@@ -33,8 +34,8 @@ public class PopulationReader {
 					String[] tempArray = tempString.split(" ");
 
 					try {
-						long zipCode = Long.parseLong(tempArray[0]);
-						long population = Long.parseLong(tempArray[1]);
+						int zipCode = Integer.parseInt(tempArray[0]);
+						int population = Integer.parseInt(tempArray[1]);
 
 						outMap.put(zipCode, population);
 
@@ -43,7 +44,8 @@ public class PopulationReader {
 					}
 
 				}
-
+				
+				s.close();
 				return outMap;
 
 			} catch (FileNotFoundException e) {
@@ -53,7 +55,7 @@ public class PopulationReader {
 
 		} else {
 			System.out.println(
-					"The population file name you entered as an argument cannot be read/does not exist! Edit and rerun program!");
+				"The population file name you entered as an argument cannot be read/does not exist! Edit and rerun program!");
 			System.exit(0);
 		}
 

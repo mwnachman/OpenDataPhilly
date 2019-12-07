@@ -11,19 +11,19 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import edu.upenn.cit594.data.Datum;
+import edu.upenn.cit594.data.ParkingTicket;
 import edu.upenn.cit594.logging.Logger;
 
 public class JsonParkingReader extends ParkingReader {
 
 	public JsonParkingReader(String parkingFilename) {
 		filename = parkingFilename;
-		data = new ArrayList<Datum>();
+		data = new ArrayList<ParkingTicket>();
 	}
 
 	private void validateAndAdd(JSONObject d) {
 
-		Datum entry = new Datum();
+		ParkingTicket entry = new ParkingTicket();
 
 		for (String k : keys) {
 			if (!d.get(k).equals("")) {
@@ -38,7 +38,7 @@ public class JsonParkingReader extends ParkingReader {
 	}
 
 	@Override
-	public List<Datum> getFileContents() {
+	public List<ParkingTicket> getFileContents() {
 		// Log Opening File //
 		Logger l = Logger.getInstance();
 		l.log(System.currentTimeMillis() + " " + filename);

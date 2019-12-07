@@ -40,9 +40,7 @@ public class Main {
 		// Set Up Relationships
 		
 		String parkingFilename = args[1];
-		
 		ParkingReader parkingReader = fileType.equals("json") ? new JsonParkingReader(parkingFilename) : new CsvParkingReader(parkingFilename);
-//		System.out.println("parking Reader " + parkingReader);
 		
 		String propertiesFilename = args[2];
 		String populationFilename = args[3];
