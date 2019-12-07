@@ -59,9 +59,9 @@ public class PropertyReader {
 					String[] tempArray = tempString.split(",");
 					
 					try {
-						double mv = Double.parseDouble(tempArray[mvLocation]);
-						double tla = Double.parseDouble(tempArray[tlaLocation]);
-						long zc = Long.parseLong(tempArray[zcLocation].substring(0, 5));
+						float mv = Float.parseFloat(tempArray[mvLocation]);
+						float tla = Float.parseFloat(tempArray[tlaLocation]);
+						int zc = Integer.parseInt(tempArray[zcLocation].substring(0, 5));
 						
 						Property tempProperty = new Property(mv,tla,zc);
 						outList.add(tempProperty);

@@ -2,11 +2,11 @@ package edu.upenn.cit594.data;
 
 public class Property {
 	
-	double marketValue;
-	double totalLivableArea;
-	long zipCode;
+	float marketValue;
+	float totalLivableArea;
+	int zipCode;
 	
-	public Property(double marketValue, double totalLivableArea, long zc) {
+	public Property(float marketValue, float totalLivableArea, int zc) {
 		this.marketValue = marketValue;
 		this.totalLivableArea = totalLivableArea;
 		this.zipCode = zc;
