@@ -20,7 +20,6 @@ public class Property {
 		return totalLivableArea;
 	}
 
-
 	public long getZipCode() {
 		return zipCode;
 	}

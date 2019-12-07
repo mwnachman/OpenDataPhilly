@@ -18,4 +18,13 @@ public class ParkingTicket {
 	public String getValue(String key) {
 		return ticket.get(key).toString();
 	}
+	
+	public float getFine() {
+		return Float.parseFloat((String) ticket.get("fine"));
+	}
+	
+	public int getZip() {
+		return Integer.parseInt((String) ticket.get("zip_code"));
+	}
+	
 }

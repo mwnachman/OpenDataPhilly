@@ -23,7 +23,7 @@ public class PropertyProcessor {
 	 * @param zipCode
 	 * @return
 	 */
-	public int totalResidentialMarketValuePerCapita(long zipCode) {
+	public int totalResidentialMarketValuePerCapita(int zipCode) {
 		
 		// NEED TO VERIFY ZIP CODE //
 		double marketValue = 0;
@@ -35,7 +35,7 @@ public class PropertyProcessor {
 		}
 		
 		// Get Zip Code Population //
-		long popSize = popProcessor.getPopulationSize(zipCode);
+		int popSize = popProcessor.getPopulationSize(zipCode);
 		
 		if (popSize == 0 || marketValue == 0) {
 			return 0;
