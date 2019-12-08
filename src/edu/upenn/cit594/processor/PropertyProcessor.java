@@ -9,15 +9,16 @@ import edu.upenn.cit594.datamanagement.PropertyReader;
 
 public class PropertyProcessor {
 
+	private PropertyReader propertyReader;
 	private ArrayList<Property> propertyData;
 	private PopulationProcessor popProcessor;
 	private HashMap<Integer, Integer> marketValueMemoization = new HashMap<Integer, Integer>();
 	private HashMap<Integer, Integer> livableAreaMemoization = new HashMap<Integer, Integer>();
 	private HashMap<Integer, Integer> totalResidentialMarketValue = new HashMap<Integer, Integer>();
 
-	public PropertyProcessor(PropertyReader propertyReader, PopulationProcessor populationProcessor) {
-		this.propertyData = propertyReader.getFileContents();
-		this.popProcessor = populationProcessor;
+	public PropertyProcessor(PropertyReader pr, PopulationProcessor populationProcessor) {
+		this.propertyReader = pr;
+		popProcessor = populationProcessor;
 	}
 
 	/**
@@ -27,7 +28,10 @@ public class PropertyProcessor {
 	 * @return
 	 */
 	public int totalResidentialMarketValuePerCapita(int zipCode) {
-		
+		if (this.propertyData == null) {
+			// only create it when we know we need it
+			this.propertyData = propertyReader.getFileContents();
+		}
 		// Check Memoization Structure for Previous Input
 		boolean lcheck = this.checkIfAlreadyCalculated(totalResidentialMarketValue, zipCode);
 		if (lcheck) {
@@ -72,7 +76,11 @@ public class PropertyProcessor {
 	 * @return
 	 */
 	public int getAverageValue(SumStrategy s, int zipCode) {
-
+		if (this.propertyData == null) {
+			// only create it when we know we need it
+			this.propertyData = propertyReader.getFileContents();
+		}
+		
 		// Check Memoization
 		if (s.getStrategyType() == "MarketValue") {
 			boolean lcheck = this.checkIfAlreadyCalculated(marketValueMemoization, zipCode);

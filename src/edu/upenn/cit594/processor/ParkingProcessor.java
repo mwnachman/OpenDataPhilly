@@ -10,14 +10,17 @@ import edu.upenn.cit594.datamanagement.ParkingReader;
 public class ParkingProcessor {
 
 	protected List<ParkingTicket> parkingData;
+	protected ParkingReader parkingReader;
 
-	public ParkingProcessor(ParkingReader parkingReader) {
-		
-		parkingData = parkingReader.getFileContents();
-		
+	public ParkingProcessor(ParkingReader pr) {
+		parkingReader = pr;
 	}
 
 	public Map<Integer, Float> calculateFinesPerZipCode() {
+		if (parkingData == null) {
+			parkingData = parkingReader.getFileContents();
+		}
+		
 		Map<Integer, Float> finesPerZipCode = new TreeMap<Integer, Float>();
 
 		for (ParkingTicket ticket : parkingData) {
