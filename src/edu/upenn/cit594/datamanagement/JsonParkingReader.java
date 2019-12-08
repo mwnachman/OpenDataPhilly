@@ -25,7 +25,6 @@ public class JsonParkingReader extends ParkingReader {
 	public void validateAndAdd(Object o) {
 		ParkingTicket entry = new ParkingTicket();
 		JSONObject d = (JSONObject) o;
-		
 		for (String k : keys) {
 			if (!d.get(k).equals("")) {
 				if (k.equals("fine")) {

@@ -1,5 +1,6 @@
 package edu.upenn.cit594.processor;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -9,15 +10,25 @@ import edu.upenn.cit594.datamanagement.ParkingReader;
 
 public class ParkingProcessor {
 
-	protected List<ParkingTicket> parkingData;
+	private List<ParkingTicket> parkingData;
+	private ParkingReader parkingReader;
+	private Map<String, Object> results;
 
-	public ParkingProcessor(ParkingReader parkingReader) {
-		
-		parkingData = parkingReader.getFileContents();
-		
+	public ParkingProcessor(ParkingReader pr) {
+		parkingReader = pr;
+		results = new HashMap<String, Object>();
 	}
 
 	public Map<Integer, Float> calculateFinesPerZipCode() {
+		if (results.containsKey("finesPerZipCode")) {
+			return (TreeMap<Integer, Float>) results.get("finesPerZipCode");
+		}
+		
+		if (parkingData == null) {
+			// only create it when we know we need it
+			parkingData = parkingReader.getFileContents();
+		}
+		
 		Map<Integer, Float> finesPerZipCode = new TreeMap<Integer, Float>();
 
 		for (ParkingTicket ticket : parkingData) {
@@ -34,8 +45,14 @@ public class ParkingProcessor {
 				}
 			}
 		}
-
+		
+		results.put("finesPerZipCode", finesPerZipCode);
+		
 		return finesPerZipCode;
+	}
+	
+	public List<ParkingTicket> getParkingData() {
+		return parkingData;
 	}
 
 }
