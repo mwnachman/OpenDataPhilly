@@ -15,9 +15,10 @@ public class CsvParkingReader extends ParkingReader {
 		data = new ArrayList<ParkingTicket>();
 	}
 
-	private void validateAndAdd(String[] d) {
-
+	@Override
+	public void validateAndAdd(Object o) {
 		ParkingTicket entry = new ParkingTicket();
+		String[] d = (String[]) o;
 		int i = 0;
 
 		for (String k : keys) {
@@ -29,9 +30,9 @@ public class CsvParkingReader extends ParkingReader {
 				return;
 			}
 		}
-
+		
 		data.add(entry);
-
+		
 	}
 
 	@Override

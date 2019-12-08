@@ -10,21 +10,25 @@ public class ParkingTicket {
 	public ParkingTicket() {
 		ticket = new HashMap<String, Object>();
 	}
-	
+
 	public void addKeyValuePair(String key, Object value) {
 		ticket.put(key, value);
 	}
-	
+
 	public String getValue(String key) {
 		return ticket.get(key).toString();
 	}
-	
+
 	public float getFine() {
 		return Float.parseFloat((String) ticket.get("fine"));
 	}
-	
+
 	public int getZip() {
 		return Integer.parseInt((String) ticket.get("zip_code"));
 	}
-	
+
+	public String getState() {
+		return (String) ticket.get("state");
+	}
+
 }

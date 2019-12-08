@@ -8,7 +8,6 @@ import edu.upenn.cit594.processor.PropertyProcessor;
 //import sun.security.ssl.Debug;
 import edu.upenn.cit594.logging.Logger;
 
-import java.text.DecimalFormat;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -62,7 +61,9 @@ public class Presentation {
 						Integer population = populationProcessor.getPopulationSize(zip);
 						Float zipTotalAmount = (Float) zipTotal.getValue();
 						Float perCapitaTotal = zipTotalAmount / population;
-						System.out.println(zipTotal.getKey() + " " + (String.format("%#.4f", perCapitaTotal)));
+						if (!(zipTotalAmount == 0) && !(population == 0)) {							
+							System.out.println(zipTotal.getKey() + " " + (String.format("%#.4f", perCapitaTotal)));
+						}
 					}
 					System.out.println("\n");
 					break;
@@ -73,7 +74,6 @@ public class Presentation {
 						int zipCodeInput = s.nextInt();
 						System.out.println(propertyProcessor.getAverageValue(new MarketValueAttribute(), zipCodeInput));
 					} catch (Exception e) {
-						System.out.println(e);
 						System.out.println("0\n"); // if not a proper zip code
 					}
 					break;
@@ -84,7 +84,6 @@ public class Presentation {
 						int zipCodeInput = s.nextInt();
 						System.out.println(propertyProcessor.getAverageValue(new LivableAreaAttribute(), zipCodeInput));
 					} catch (Exception e) {
-						System.out.println(e);
 						System.out.println("0\n"); // if not a proper zip code
 					}
 					break;

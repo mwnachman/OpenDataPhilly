@@ -21,20 +21,26 @@ public class JsonParkingReader extends ParkingReader {
 		data = new ArrayList<ParkingTicket>();
 	}
 
-	private void validateAndAdd(JSONObject d) {
-
+	@Override
+	public void validateAndAdd(Object o) {
 		ParkingTicket entry = new ParkingTicket();
-
+		JSONObject d = (JSONObject) o;
+		
 		for (String k : keys) {
 			if (!d.get(k).equals("")) {
-				entry.addKeyValuePair(k, d.get(k));
+				if (k.equals("fine")) {
+					String fine = Long.toString((long) d.get(k));
+					entry.addKeyValuePair(k, fine);					
+				} else {
+					entry.addKeyValuePair(k, d.get(k));					
+				}
 			} else {
 				return;
 			}
 		}
-
+		
 		data.add(entry);
-
+		
 	}
 
 	@Override
