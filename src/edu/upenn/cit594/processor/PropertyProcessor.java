@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import edu.upenn.cit594.data.Property;
-import edu.upenn.cit594.datamanagement.PopulationReader;
 import edu.upenn.cit594.datamanagement.PropertyReader;
 
 public class PropertyProcessor {
@@ -32,6 +31,7 @@ public class PropertyProcessor {
 			// only create it when we know we need it
 			this.propertyData = propertyReader.getFileContents();
 		}
+		
 		// Check Memoization Structure for Previous Input
 		boolean lcheck = this.checkIfAlreadyCalculated(totalResidentialMarketValue, zipCode);
 		if (lcheck) {

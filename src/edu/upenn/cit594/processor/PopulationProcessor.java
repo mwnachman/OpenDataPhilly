@@ -1,5 +1,6 @@
 package edu.upenn.cit594.processor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import edu.upenn.cit594.datamanagement.PopulationReader;
@@ -7,9 +8,11 @@ import edu.upenn.cit594.datamanagement.PopulationReader;
 public class PopulationProcessor {
 	
 	Map<Integer, Integer> populationData;
+	Map<String, Object> results;
 	
 	public PopulationProcessor(PopulationReader populationReader) {
 		this.populationData = populationReader.getFileContents();
+		results = new HashMap<String, Object>();
 	}
 	
 	/**
@@ -28,12 +31,18 @@ public class PopulationProcessor {
 	}
 	
 	public int getTotalPopulation() {
+		if (results.containsKey("totalPopulation")) {
+			return (int) results.get("totalPopulation");
+		}
+		
 		int totalPopulation = 0;
 		
 		for (Map.Entry mapElement : populationData.entrySet()) {
 			totalPopulation += (int) mapElement.getValue();
 		}
-			
+
+		results.put("totalPopulation", totalPopulation);
+		
 		return totalPopulation;
 	}
 	
