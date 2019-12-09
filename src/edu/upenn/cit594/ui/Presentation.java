@@ -65,7 +65,7 @@ public class Presentation {
 							System.out.println(zipTotal.getKey() + " " + (String.format("%#.4f", perCapitaTotal)));
 						}
 					}
-					System.out.println("\n");
+					System.out.println("");
 					break;
 
 					case 3:
@@ -125,7 +125,7 @@ public class Presentation {
 					for (Map.Entry entry : violationsPer100KPropertyValue.entrySet()) {
 						System.out.println(entry.getKey() + " " + (String.format("%#.1f", entry.getValue())));
 					}
-					System.out.println("\n");
+					System.out.println();
 					break;
 
 				default:
