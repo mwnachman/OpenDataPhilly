@@ -30,5 +30,9 @@ public class ParkingTicket {
 	public String getState() {
 		return (String) ticket.get("state");
 	}
+	
+	public String getViolation() {
+		return (String) ticket.get("violation");
+	}
 
 }

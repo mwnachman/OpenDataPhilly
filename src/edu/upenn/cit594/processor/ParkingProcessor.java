@@ -51,6 +51,64 @@ public class ParkingProcessor {
 		return finesPerZipCode;
 	}
 	
+	private Map<Integer, Integer> calculateExpiredInspectionsPerZipCode() {
+		String searchedViolation = "EXPIRED INSPECTION";
+		
+		if (results.containsKey("expiredInspectionsPerZipCode")) {
+			return (Map<Integer, Integer>) results.get("expiredInspectionsPerZipCode");
+		}
+		
+		if (parkingData == null) {
+			// only create it when we know we need it
+			parkingData = parkingReader.getFileContents();
+		}
+		
+		Map<Integer, Integer> expiredInspectionsPerZipCode = new TreeMap<Integer, Integer>();
+		
+		for (ParkingTicket ticket : parkingData) {
+			Integer zip = (int) ticket.getZip();
+			String state = ticket.getState();
+			String violation = ticket.getViolation();
+			if (violation.toUpperCase().equals(searchedViolation) && state.equals("PA")) {
+				if (expiredInspectionsPerZipCode.containsKey(zip)) {
+					Integer total = expiredInspectionsPerZipCode.get(zip);
+					int newTotal = total + 1;
+					expiredInspectionsPerZipCode.replace(zip, newTotal);
+				} else {
+					expiredInspectionsPerZipCode.put(zip, 1);
+				}
+			}
+		}
+		
+		results.put("expiredInspectionsPerZipCode", expiredInspectionsPerZipCode);
+		
+		return expiredInspectionsPerZipCode;
+	}
+	
+	public Map<Integer, Float> calculateInspectionViolationsPer100KPropertyValuePerCapita(PropertyProcessor propP) {
+		if (results.containsKey("inspectionViolationsPer100K")) {
+			return (Map<Integer, Float>) results.get("inspectionViolationsPer100K");
+		}
+		
+		Map<Integer, Integer> expiredInspections = calculateExpiredInspectionsPerZipCode();
+		Map<Integer, Float> expiredInspectionsPer100KPropertyValue = new TreeMap<Integer, Float>();
+		
+		for (Map.Entry zipData : expiredInspections.entrySet()) {
+			Integer zip = (Integer) zipData.getKey();
+			int violations = (int) zipData.getValue();
+			int perCapitaPropVal = propP.totalResidentialMarketValuePerCapita(zip);
+			float zip100KPerCapita = perCapitaPropVal / 100000F;
+			if (violations != 0) {
+				float violationsPer100K = violations / zip100KPerCapita;
+				expiredInspectionsPer100KPropertyValue.put(zip, violationsPer100K);
+			}
+		}
+
+		results.put("inspectionViolationsPer100K", expiredInspectionsPer100KPropertyValue);
+		return expiredInspectionsPer100KPropertyValue;
+
+	}
+	
 	public List<ParkingTicket> getParkingData() {
 		return parkingData;
 	}
