@@ -68,37 +68,57 @@ public class Presentation {
 					System.out.println("\n");
 					break;
 
-				case 3:
-					System.out.println("For which zip code would you like to show the average market value? ");
-					try {
-						int zipCodeInput = s.nextInt();
-						System.out.println(propertyProcessor.getAverageValue(new MarketValueAttribute(), zipCodeInput));
-					} catch (Exception e) {
-						System.out.println("0\n"); // if not a proper zip code
-					}
-					break;
+					case 3:
+						System.out.println("For which zip code would you like to show the average market value? ");
+						try {
+							String zipCodeInput = s.next();
 
-				case 4:
-					System.out.println("For which zip code would you like to show the average livable area? ");
-					try {
-						int zipCodeInput = s.nextInt();
-						System.out.println(propertyProcessor.getAverageValue(new LivableAreaAttribute(), zipCodeInput));
-					} catch (Exception e) {
-						System.out.println("0\n"); // if not a proper zip code
-					}
-					break;
+							try {
+								int zipCodeSelection = Integer.parseInt(zipCodeInput);
+								System.out.println(propertyProcessor.getAverageValue(new MarketValueAttribute(),
+										zipCodeSelection));
+							} catch (Exception e) {
+								System.out.println("0\n"); // if not a number input then return 0
+							}
 
-				case 5:
-					System.out.println(
-						"For which zip code would you like to show the total residential market value per capita? ");
-					try {
-						int zipCodeInput = s.nextInt();
-						System.out.println(propertyProcessor.totalResidentialMarketValuePerCapita(zipCodeInput) + "\n"); // display
-																															// output
-					} catch (Exception e) {
-						System.out.println("0\n");
-					}
-					break;
+						} catch (Exception e) {
+						}
+						break;
+
+					case 4:
+						System.out.println("For which zip code would you like to show the average livable area? ");
+						try {
+							String zipCodeInput = s.next();
+
+							try {
+								int zipCodeSelection = Integer.parseInt(zipCodeInput);
+								System.out.println(propertyProcessor.getAverageValue(new LivableAreaAttribute(),
+										zipCodeSelection));
+							} catch (Exception e) {
+								System.out.println("0\n"); // if not a number input then return 0
+							}
+
+						} catch (Exception e) {
+						}
+						break;
+
+					case 5:
+						System.out.println("For which zip code would you like to show the average livable area? ");
+						try {
+							String zipCodeInput = s.next();
+
+							try {
+								int zipCodeSelection = Integer.parseInt(zipCodeInput);
+								System.out.println(
+										propertyProcessor.totalResidentialMarketValuePerCapita(zipCodeSelection)
+												+ "\n"); // display
+							} catch (Exception e) {
+								System.out.println("0\n"); // if not a number input then return 0
+							}
+
+						} catch (Exception e) {
+						}
+						break;
 
 				case 6:
 					Map<Integer, Float> violationsPer100KPropertyValue = parkingProcessor.calculateInspectionViolationsPer100KPropertyValuePerCapita(propertyProcessor);
