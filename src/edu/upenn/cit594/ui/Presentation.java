@@ -61,7 +61,7 @@ public class Presentation {
 						Integer population = populationProcessor.getPopulationSize(zip);
 						Float zipTotalAmount = (Float) zipTotal.getValue();
 						Float perCapitaTotal = zipTotalAmount / population;
-						if (!(zipTotalAmount == 0) && !(population == 0)) {							
+						if (zipTotalAmount != 0 && population != 0) {							
 							System.out.println(zipTotal.getKey() + " " + (String.format("%#.4f", perCapitaTotal)));
 						}
 					}
@@ -90,7 +90,7 @@ public class Presentation {
 
 				case 5:
 					System.out.println(
-							"For which zip code would you like to show the total residential market value per capita? ");
+						"For which zip code would you like to show the total residential market value per capita? ");
 					try {
 						int zipCodeInput = s.nextInt();
 						System.out.println(propertyProcessor.totalResidentialMarketValuePerCapita(zipCodeInput) + "\n"); // display
@@ -101,6 +101,11 @@ public class Presentation {
 					break;
 
 				case 6:
+					Map<Integer, Float> violationsPer100KPropertyValue = parkingProcessor.calculateInspectionViolationsPer100KPropertyValuePerCapita(propertyProcessor);
+					for (Map.Entry entry : violationsPer100KPropertyValue.entrySet()) {
+						System.out.println(entry.getKey() + " " + (String.format("%#.1f", entry.getValue())));
+					}
+					System.out.println("\n");
 					break;
 
 				default:
